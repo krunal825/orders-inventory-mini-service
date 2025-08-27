@@ -1,0 +1,40 @@
+// VS Code REST Client file: install 'REST Client' extension to use
+@host = http://localhost:3000
+
+### Health
+GET {{host}}/health
+
+### Create user (raw SQL or via DB tool; here we assume a user exists with id 1)
+# You can insert manually:
+# INSERT INTO users (email, name) VALUES ('user@example.com', 'Krunal');
+
+### Create product
+POST {{host}}/products
+Content-Type: application/json
+
+{
+  "sku": "SKU-1001",
+  "name": "Phone Charger",
+  "price_cents": 1299,
+  "stock": 25
+}
+
+### List products (cached)
+GET {{host}}/products?page=1&limit=10&min_price=500&max_price=2000&in_stock=true
+
+### Create order
+POST {{host}}/orders
+Content-Type: application/json
+
+{
+  "user_id": 1,
+  "items": [
+    { "product_id": 1, "qty": 2 }
+  ]
+}
+
+### Get order by id
+GET {{host}}/orders/1
+
+### Cancel order
+PATCH {{host}}/orders/1/cancel
